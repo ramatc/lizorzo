@@ -34,22 +34,21 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex items-end md:col-span-4 md:col-start-9 md:justify-end">
+          <div className="flex items-center justify-between gap-6 md:col-span-4 md:col-start-9 md:self-end">
             <a
               href="#top"
               className={button('inverse', 'sm')}
             >
               <ArrowUp size={14} strokeWidth={2.25} aria-hidden="true" /> Volver arriba
             </a>
+            {/* The artist's signature: the 925 hallmark. */}
+            <Reveal>
+              <Brand925 size="lg" className="text-ink" />
+            </Reveal>
           </div>
         </div>
 
-        {/* The artist's signature: the 925 hallmark set against the wordmark it belongs to. */}
-        <Reveal className="mt-12 flex justify-end md:mt-16">
-          <Brand925 size="lg" className="text-ink" />
-        </Reveal>
-
-        <div className="@container mt-3 overflow-hidden md:mt-4" aria-hidden="true">
+        <div className="@container mt-12 overflow-hidden md:mt-16" aria-hidden="true">
           <p className="hero-name -mb-[0.04em] select-none font-display leading-[0.8] uppercase">{artist.name}</p>
         </div>
       </div>
