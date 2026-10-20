@@ -91,8 +91,7 @@ export const shows: Show[] = [
     status: 'available',
   },
   {
-    // Fuente: bio de Instagram + flyer de Nómada ("SAB 30 ENE").
-    // El año no figura en el flyer: 2027 es el próximo 30/01 que cae sábado. Confirmar.
+    // Fuente: bio de Instagram + flyer de Nómada ("SAB 30 ENE"). Año 2027 confirmado.
     id: '2027-01-30-depto-mx',
     date: '2027-01-30',
     city: 'Cd. Nezahualcóyotl, Edomex',
