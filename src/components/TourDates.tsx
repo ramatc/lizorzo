@@ -37,7 +37,7 @@ function EmptyState() {
   return (
     <Reveal className="mt-8 border-y border-bone/15 py-12 md:mt-14 md:py-20">
       <p
-        className="font-display text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.9] text-transparent uppercase [-webkit-text-stroke:1.5px_var(--color-bone)]"
+        className="font-display text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.9] text-balance text-transparent uppercase [-webkit-text-stroke:1.5px_var(--color-bone)]"
       >
         {artist.copy.emptyShowsTitle}
       </p>

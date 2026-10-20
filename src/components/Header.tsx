@@ -86,7 +86,7 @@ export function Header() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="label relative py-2 text-bone/85 transition-colors hover:text-bone after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform hover:after:scale-x-100"
+                  className="ui-label relative py-2 text-bone/85 transition-colors hover:text-bone after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform hover:after:scale-x-100"
                 >
                   {item.label}
                 </a>
@@ -128,7 +128,7 @@ export function Header() {
               <a
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block py-5 font-display text-[2.75rem] leading-none uppercase transition-colors hover:text-accent"
+                className="block py-5 text-menu font-extrabold uppercase transition-colors hover:text-accent"
               >
                 {item.label}
               </a>

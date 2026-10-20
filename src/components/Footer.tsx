@@ -19,7 +19,7 @@ export function Footer() {
                 <li key={social.label} className="border-b border-ink/25">
                   <ExternalLink
                     href={social.url}
-                    className="group flex items-center justify-between py-3 font-display text-[clamp(2rem,5vw,3.5rem)] leading-none uppercase"
+                    className="group flex items-center justify-between py-3 font-display text-display-link uppercase"
                   >
                     <span className="transition-transform group-hover:translate-x-2">
                       {social.label}
@@ -69,7 +69,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-ink/25">
-        <div className="shell flex flex-col gap-1 py-4 text-xs sm:flex-row sm:justify-between">
+        <div className="shell flex flex-col gap-1 py-4 text-xs leading-relaxed sm:flex-row sm:justify-between">
           <p>
             © {year} {artist.name}. Todos los derechos reservados.
           </p>

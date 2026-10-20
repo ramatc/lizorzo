@@ -71,7 +71,7 @@ export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
                 onClick={() => selectFilter(f.id)}
               >
                 {f.label}
-                <span className="font-semibold opacity-60">{f.count}</span>
+                <span className="font-mono font-medium tracking-normal tabular-nums opacity-60">{f.count}</span>
               </button>
             ))}
           </div>
@@ -107,7 +107,7 @@ export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
           )}
           <ExternalLink
             href={spotifyUrl}
-            className="label inline-flex min-h-12 items-center gap-2 text-bone/85 transition-colors hover:text-accent"
+            className="ui-label inline-flex min-h-12 items-center gap-2 text-bone/85 transition-colors hover:text-accent"
           >
             Discografía completa en Spotify <ArrowUpRight size={14} aria-hidden="true" />
           </ExternalLink>
@@ -136,10 +136,10 @@ function ReleaseTile({ release }: { release: Release }) {
       </div>
       <div className="mt-3 flex items-start justify-between gap-3 border-t border-bone/15 pt-3">
         <div className="min-w-0">
-          <h3 className="font-display text-xl leading-[1.05] uppercase transition-colors group-hover:text-accent md:text-[1.75rem]">
+          <h3 className="text-title font-bold text-balance uppercase transition-colors group-hover:text-accent">
             {release.title}
           </h3>
-          <p className="label mt-1.5 text-ash">
+          <p className="label mt-2 text-ash">
             {releaseTypeLabel[release.type]} · {year}
           </p>
         </div>
@@ -180,8 +180,8 @@ function LiveSession({ release }: { release: Release }) {
         <p className="label flex items-center gap-2 text-accent">
           <span className="size-2 rounded-full bg-accent" aria-hidden="true" /> En vivo · Sesión
         </p>
-        <h3 className="mt-3 font-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] uppercase">{release.title}</h3>
-        <p className="mt-3 text-bone/80">
+        <h3 className="mt-3 font-display text-display-md text-balance uppercase">{release.title}</h3>
+        <p className="label mt-4 text-bone/80">
           {release.tracks} temas grabados en vivo · {parseISODate(release.releaseDate).year}
         </p>
         <div className="mt-6">

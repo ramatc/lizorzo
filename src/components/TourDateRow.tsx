@@ -22,7 +22,7 @@ export function TourDateRow({ show }: { show: Show }) {
           dateTime={show.time ? `${show.date}T${show.time}` : show.date}
           className="row-span-2 flex flex-col md:col-span-2 md:row-span-1 md:flex-row md:items-end md:gap-3"
         >
-          <span className="font-display text-[3.5rem] leading-[0.85] md:text-[5.5rem]">{date.day}</span>
+          <span className="font-display text-[3.5rem] leading-[0.85] tracking-[0.01em] md:text-[5.5rem]">{date.day}</span>
           <span className="label mt-1.5 flex gap-1.5 md:mb-1.5 md:flex-col md:gap-1">
             <span className="text-bone">{date.month}</span>
             <span className="text-ash">{date.year}</span>
@@ -33,14 +33,14 @@ export function TourDateRow({ show }: { show: Show }) {
           <h3 className="font-display text-[1.75rem] leading-none uppercase md:text-[2.5rem]">
             {show.city}
           </h3>
-          <p className="mt-1.5 text-[0.9375rem] text-bone/90">
+          <p className="mt-2 text-[0.9375rem] leading-snug font-semibold text-bone/90">
             {show.venue}
-            <span className="text-ash">
+            <span className="font-normal text-ash">
               {' · '}
               <CountryFlag code={show.countryCode} /> {show.country}
             </span>
           </p>
-          {show.title && <p className="mt-1 text-sm text-ash">{show.title}</p>}
+          {show.title && <p className="mt-1.5 text-sm leading-snug font-medium text-ash">{show.title}</p>}
         </div>
 
         <div className="label hidden gap-2 text-ash md:col-span-2 md:flex md:flex-col">
@@ -52,7 +52,7 @@ export function TourDateRow({ show }: { show: Show }) {
             <p>
               <ExternalLink
                 href={show.locationUrl}
-                className="inline-flex items-center gap-1 transition-colors hover:text-accent"
+                className="ui-label inline-flex items-center gap-1 transition-colors hover:text-accent"
                 aria-label={`Cómo llegar a ${show.venue} (abre Google Maps)`}
               >
                 <MapPin size={12} aria-hidden="true" /> Cómo llegar
@@ -70,7 +70,7 @@ export function TourDateRow({ show }: { show: Show }) {
           {show.locationUrl && (
             <ExternalLink
               href={show.locationUrl}
-              className="label inline-flex min-h-11 items-center gap-1 text-ash transition-colors hover:text-accent md:hidden"
+              className="ui-label inline-flex min-h-11 items-center gap-1 text-ash transition-colors hover:text-accent md:hidden"
               aria-label={`Cómo llegar a ${show.venue} (abre Google Maps)`}
             >
               <MapPin size={12} aria-hidden="true" /> Cómo llegar

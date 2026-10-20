@@ -26,7 +26,7 @@ export default function App() {
       <a
         data-behind-menu
         href="#fechas"
-        className="label fixed top-2 left-2 z-[70] -translate-y-20 bg-accent px-4 py-3 text-ink focus:translate-y-0"
+        className="ui-label fixed top-2 left-2 z-[70] -translate-y-20 bg-accent px-4 py-3 text-ink focus:translate-y-0"
       >
         Saltar a las fechas
       </a>

@@ -27,7 +27,7 @@ export function Brand925({ size = 'sm', index, className = '' }: StampProps | In
   if (index !== undefined) {
     return (
       <span aria-hidden="true" className={`label ${className}`}>
-        925 <span className="text-accent">/</span> {index}
+        <span className="text-bone">925</span> <span className="text-accent">/</span> {index}
       </span>
     )
   }

@@ -1,6 +1,6 @@
 /* Single source for every pressable action: one height scale, one type style, one press feedback. */
 const base =
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-bold tracking-[0.12em] uppercase transition-[background-color,color,border-color,transform] active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans font-bold tracking-[0.08em] uppercase transition-[background-color,color,border-color,transform] active:scale-[0.98]'
 
 const sizes = {
   md: 'min-h-12 px-4 text-[0.8125rem] sm:px-5',

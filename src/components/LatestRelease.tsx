@@ -54,12 +54,12 @@ export function LatestRelease({ release }: { release?: Release }) {
                 </span>
               ))}
             </p>
-            <h3 className="mt-4 font-display text-[clamp(3rem,8.5vw,7rem)] leading-[0.86] uppercase">
+            <h3 className="mt-4 font-display text-display-lg text-balance uppercase">
               {release.title}
             </h3>
             <p className="mt-6 flex items-baseline gap-3 border-t border-bone/15 pt-4">
               <span className="label text-ash">Salió el</span>
-              <time dateTime={release.releaseDate} className="font-display text-2xl leading-none uppercase">
+              <time dateTime={release.releaseDate} className="font-mono text-base font-medium tracking-[0.04em] text-bone uppercase tabular-nums">
                 {formatReleaseDate(release.releaseDate)}
               </time>
             </p>

@@ -46,7 +46,7 @@ export function About({ releases }: { releases: Release[] }) {
 
           <Reveal className="flex flex-col md:col-span-7" delay={120}>
             <figure>
-              <blockquote className="font-display text-[clamp(2rem,4.2vw,3.75rem)] leading-[0.98] uppercase">
+              <blockquote className="font-display text-display-quote text-balance uppercase">
                 <span className="text-accent" aria-hidden="true">“</span>
                 {artist.quote}
                 <span className="text-accent" aria-hidden="true">”</span>
@@ -55,7 +55,7 @@ export function About({ releases }: { releases: Release[] }) {
             </figure>
 
             {artist.bio.length > 0 ? (
-              <div className="mt-8 max-w-xl space-y-4 text-[1.0625rem] leading-relaxed text-bone/85">
+              <div className="mt-8 max-w-[62ch] space-y-4 text-body text-bone/85">
                 {artist.bio.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -73,7 +73,7 @@ export function About({ releases }: { releases: Release[] }) {
               {facts.map((fact) => (
                 <div key={fact.label} className="border-b border-bone/15 py-4 pr-4">
                   <dt className="label text-ash">{fact.label}</dt>
-                  <dd className="mt-1.5 font-semibold">{fact.value}</dd>
+                  <dd className="mt-2 leading-snug font-semibold">{fact.value}</dd>
                 </div>
               ))}
             </dl>

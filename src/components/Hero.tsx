@@ -88,10 +88,10 @@ function NextShowTeaser({
     >
       <span className="label text-ash">Próxima fecha</span>
       <span className="flex items-center gap-3">
-        <span className="font-display text-2xl leading-none md:text-4xl">{next.compact}</span>
-        <span className="text-sm text-bone/90">
+        <span className="font-display text-2xl leading-none tracking-[0.02em] md:text-4xl">{next.compact}</span>
+        <span className="text-sm leading-snug font-semibold text-bone/90">
           {show.venue}
-          <span className="block text-ash">{show.city}</span>
+          <span className="label mt-1 block text-ash">{show.city}</span>
         </span>
         <ArrowRight
           size={18}

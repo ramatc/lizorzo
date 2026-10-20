@@ -21,7 +21,7 @@ export function SectionHeading({ id, title, aside, code }: SectionHeadingProps) 
       )}
       <h2
         id={id}
-        className="font-display text-[clamp(3.25rem,11vw,9rem)] leading-[0.9] tracking-[-0.01em] uppercase"
+        className="font-display text-display-xl text-balance uppercase"
       >
         {title}
       </h2>
