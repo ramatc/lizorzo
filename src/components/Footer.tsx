@@ -34,7 +34,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex items-end md:col-span-4 md:col-start-9">
+          <div className="flex items-end md:col-span-4 md:col-start-9 md:justify-end">
             <a
               href="#top"
               className={button('inverse', 'sm')}
