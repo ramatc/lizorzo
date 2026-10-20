@@ -1,6 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { artist } from '../data/artist'
+import { Brand925 } from './Brand925'
 import { button } from './button'
 
 const NAV = [
@@ -59,10 +60,11 @@ export function Header() {
       <div className="shell flex h-16 shrink-0 items-center justify-between">
         <a
           href="#top"
-          className="font-display text-[1.625rem] leading-none tracking-[0.02em] uppercase"
+          className="group inline-flex items-center gap-2.5 font-display text-[1.625rem] leading-none tracking-[0.02em] uppercase"
           onClick={() => setOpen(false)}
         >
           {artist.name}
+          <Brand925 className="text-accent transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-ink" />
         </a>
 
         <nav aria-label="Principal" className="hidden md:block">

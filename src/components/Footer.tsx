@@ -1,6 +1,8 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react'
 import { artist } from '../data/artist'
+import { Brand925 } from './Brand925'
 import { button } from './button'
+import { Reveal } from './Reveal'
 import { ExternalLink } from './ExternalLink'
 
 export function Footer() {
@@ -57,7 +59,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="@container mt-12 overflow-hidden md:mt-16" aria-hidden="true">
+        {/* The artist's signature: the 925 hallmark set against the wordmark it belongs to. */}
+        <Reveal className="mt-12 flex justify-end md:mt-16">
+          <Brand925 size="lg" className="text-ink" />
+        </Reveal>
+
+        <div className="@container mt-3 overflow-hidden md:mt-4" aria-hidden="true">
           <p className="hero-name -mb-[0.04em] select-none font-display leading-[0.8] uppercase">{artist.name}</p>
         </div>
       </div>

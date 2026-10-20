@@ -55,7 +55,7 @@ export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
   return (
     <section id="musica" aria-labelledby="musica-title" className="pt-4 pb-20 md:pb-32">
       <div className="shell">
-        <SectionHeading id="musica-title" title="Música" aside={`${total} lanzamientos`} />
+        <SectionHeading id="musica-title" code="002" title="Música" aside={`${total} lanzamientos`} />
 
         {liveSession && <LiveSession release={liveSession} />}
 

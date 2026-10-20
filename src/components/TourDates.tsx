@@ -14,6 +14,7 @@ export function TourDates({ shows }: { shows: Show[] }) {
       <div className="shell">
         <SectionHeading
           id="fechas-title"
+          code="001"
           title="Próximas fechas"
           aside={count > 0 ? `${count} ${count === 1 ? 'fecha' : 'fechas'}` : undefined}
         />

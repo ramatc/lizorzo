@@ -23,7 +23,7 @@ export function About({ releases }: { releases: Release[] }) {
   return (
     <section id="sobre-mi" aria-labelledby="sobre-mi-title" className="pt-4 pb-20 md:pb-32">
       <div className="shell">
-        <SectionHeading id="sobre-mi-title" title="Sobre mí" />
+        <SectionHeading id="sobre-mi-title" code="003" title="Sobre mí" />
 
         <div className="mt-8 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-12">
           <Reveal className="md:col-span-5">

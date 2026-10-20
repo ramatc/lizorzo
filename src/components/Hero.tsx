@@ -2,6 +2,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react'
 import { artist } from '../data/artist'
 import type { Show } from '../data/shows'
 import { formatShowDate } from '../lib/dates'
+import { Brand925 } from './Brand925'
 import { buttonGhost, buttonPrimary } from './button'
 
 type HeroProps = { nextShow?: Show }
@@ -51,6 +52,11 @@ export function Hero({ nextShow }: HeroProps) {
             {artist.name}
           </span>
         </h1>
+
+        {/* Colophon under the masthead: the 925 hallmark signs the name without touching the photo. */}
+        <div className="flex justify-end pt-3 md:pt-4 md:pb-5">
+          <Brand925 size="md" className="stamp-in text-bone/80" />
+        </div>
 
         <div className="pt-4 pb-6 md:hidden">
           <HeroActions />
