@@ -12,7 +12,10 @@ export function Hero({ nextShow }: HeroProps) {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative isolate bg-ink">
-      <div className="relative h-[36svh] min-h-[240px] max-h-[440px] overflow-hidden bg-surface md:h-[clamp(640px,94svh,1000px)] md:max-h-none">
+      {/* The photo is square, so wide screens crop more of it vertically. The desktop offset
+          keeps the 50% 84% framing but never crops more than 38% of the width off the top,
+          which is where the hair starts. */}
+      <div className="@container relative h-[36svh] min-h-[240px] max-h-[440px] overflow-hidden bg-surface md:h-(--hero-h) md:max-h-none md:[--hero-h:clamp(640px,94svh,1000px)]">
         <img
           src={hero.src}
           srcSet={`${hero.srcSmall} 960w, ${hero.src} 1800w`}
@@ -22,7 +25,7 @@ export function Hero({ nextShow }: HeroProps) {
           alt={hero.alt}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 size-full origin-[58%_52%] scale-[1.3] object-cover object-[62%_46%] md:scale-100 md:object-[50%_84%]"
+          className="absolute inset-0 size-full origin-[58%_52%] scale-[1.3] object-cover object-[62%_46%] md:scale-100 md:object-[50%_calc(-1*clamp(0px,0.84*(100cqw-var(--hero-h)),38cqw))]"
         />
         <div
           aria-hidden="true"
