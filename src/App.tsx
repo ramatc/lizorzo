@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { About } from './components/About'
 import { EasterEgg925 } from './components/EasterEgg925'
 import { Footer } from './components/Footer'
@@ -38,6 +40,8 @@ export default function App() {
       </main>
       <Footer />
       <EasterEgg925 />
+      <Analytics />
+      <SpeedInsights />
     </div>
   )
 }
