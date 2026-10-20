@@ -1,45 +1,25 @@
-import { ArrowUpRight } from 'lucide-react'
-import { releaseTypeLabel, type Release, type ReleaseLink } from '../data/releases'
+import { releaseTypeLabel, type Release } from '../data/releases'
 import { formatReleaseDate } from '../lib/dates'
-import { ExternalLink, buttonGhost, buttonPrimary } from './ExternalLink'
+import { ExternalLink } from './ExternalLink'
+import { ReleaseLinks, releaseUrl } from './ReleaseLinks'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
 
-type ReleaseLinksProps = {
-  release: Release
-  /** Platform label to show first as the primary button. */
-  prefer?: string
-}
-
-/** Every available platform link for a release; missing links are never rendered. */
-export function ReleaseLinks({ release, prefer }: ReleaseLinksProps) {
-  const links = [
-    release.spotifyUrl && { label: 'Spotify', url: release.spotifyUrl },
-    release.youtubeUrl && { label: 'YouTube', url: release.youtubeUrl },
-    ...(release.otherLinks ?? []),
-  ]
-    .filter((link): link is ReleaseLink => Boolean(link))
-    .sort((a, b) => Number(b.label === prefer) - Number(a.label === prefer))
-
-  return (
-    <div className="flex flex-wrap gap-3">
-      {links.map((link, i) => (
-        <ExternalLink
-          key={link.url}
-          href={link.url}
-          className={i === 0 ? buttonPrimary : buttonGhost}
-          aria-label={`${link.label === 'YouTube' ? 'Ver' : 'Escuchar'} ${release.title} en ${link.label}`}
-        >
-          {i === 0 ? `${link.label === 'YouTube' ? 'Ver' : 'Escuchar'} en ${link.label}` : link.label}
-          <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
-        </ExternalLink>
-      ))}
-    </div>
-  )
-}
-
 export function LatestRelease({ release }: { release?: Release }) {
   if (!release) return null
+
+  const href = releaseUrl(release)
+  const artwork = (
+    <img
+      src={release.artwork}
+      alt={`Portada de ${release.title}`}
+      width={640}
+      height={640}
+      loading="lazy"
+      decoding="async"
+      className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  )
 
   const meta = [
     releaseTypeLabel[release.type],
@@ -50,28 +30,20 @@ export function LatestRelease({ release }: { release?: Release }) {
     <section
       id="lo-ultimo"
       aria-labelledby="lo-ultimo-title"
-      className="relative scroll-mt-16 overflow-hidden bg-surface py-4 pb-20 md:pb-28"
+      className="relative overflow-hidden bg-surface pt-4 pb-20 md:pb-32"
     >
       <div className="shell">
-        <SectionHeading id="lo-ultimo-title" index="03" title="Lo último" aside="Nuevo lanzamiento" />
+        <SectionHeading id="lo-ultimo-title" title="Lo último" aside="Nuevo lanzamiento" />
 
         <div className="mt-8 grid gap-8 md:mt-14 md:grid-cols-12 md:items-end md:gap-12">
           <Reveal className="md:col-span-7">
-            <ExternalLink
-              href={release.spotifyUrl ?? release.youtubeUrl}
-              className="group block overflow-hidden bg-ink"
-              aria-label={`Abrir ${release.title}`}
-            >
-              <img
-                src={release.artwork}
-                alt={`Portada de ${release.title}`}
-                width={640}
-                height={640}
-                loading="lazy"
-                decoding="async"
-                className="aspect-square w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-              />
-            </ExternalLink>
+            {href ? (
+              <ExternalLink href={href} className="group block overflow-hidden bg-ink" aria-label={`Abrir ${release.title}`}>
+                {artwork}
+              </ExternalLink>
+            ) : (
+              <div className="overflow-hidden bg-ink">{artwork}</div>
+            )}
           </Reveal>
 
           <Reveal className="md:col-span-5 md:pb-2" delay={120}>

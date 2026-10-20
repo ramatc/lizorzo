@@ -1,16 +1,17 @@
 import { ArrowUpRight, MapPin } from 'lucide-react'
 import type { Show } from '../data/shows'
 import { formatShowDate } from '../lib/dates'
+import { button, buttonGhost, buttonPrimary } from './button'
 import { ExternalLink } from './ExternalLink'
 
 export function TourDateRow({ show }: { show: Show }) {
   const date = formatShowDate(show.date)
 
   return (
-    <li className="group relative -mx-5 px-5 transition-colors duration-300 hover:bg-surface md:-mx-6 md:px-6">
+    <li className="group relative -mx-5 px-5 transition-colors hover:bg-surface md:-mx-6 md:px-6">
       <span
         aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100"
+        className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-accent transition-transform group-hover:scale-y-100"
       />
       <article
         aria-label={`${date.long}, ${show.venue}, ${show.city}`}
@@ -31,7 +32,7 @@ export function TourDateRow({ show }: { show: Show }) {
           <h3 className="font-display text-[1.75rem] leading-none uppercase md:text-[2.5rem]">
             {show.city}
           </h3>
-          <p className="mt-1.5 text-[0.9375rem] font-medium text-bone/90">
+          <p className="mt-1.5 text-[0.9375rem] text-bone/90">
             {show.venue}
             <span className="text-ash"> · {show.country}</span>
           </p>
@@ -65,10 +66,10 @@ export function TourDateRow({ show }: { show: Show }) {
           {show.locationUrl && (
             <ExternalLink
               href={show.locationUrl}
-              className="label inline-flex items-center gap-1 text-ash transition-colors hover:text-accent md:hidden"
+              className="label inline-flex min-h-11 items-center gap-1 text-ash transition-colors hover:text-accent md:hidden"
               aria-label={`Cómo llegar a ${show.venue} (abre Google Maps)`}
             >
-              <MapPin size={12} aria-hidden="true" /> Mapa
+              <MapPin size={12} aria-hidden="true" /> Cómo llegar
             </ExternalLink>
           )}
         </div>
@@ -77,34 +78,51 @@ export function TourDateRow({ show }: { show: Show }) {
   )
 }
 
-const statusTag = 'label inline-flex min-h-11 items-center px-4 border'
+/*
+ * Non-interactive ticket status: plain text with a status dot (same pattern as the live session tag),
+ * never a bordered box, so it can't be mistaken for a button.
+ */
+function StatusTag({ dot, className = '', children }: { dot: string; className?: string; children: string }) {
+  return (
+    <span className={`label inline-flex items-center gap-2 ${className}`}>
+      <span className={`size-2 shrink-0 rounded-full ${dot}`} aria-hidden="true" />
+      {children}
+    </span>
+  )
+}
 
 function TicketAction({ show }: { show: Show }) {
   const venueLabel = `${show.venue}, ${show.city}`
 
   if (show.status === 'sold_out') {
     return (
-      <span className={`${statusTag} border-bone/20 text-ash line-through decoration-accent decoration-2`}>
+      <StatusTag dot="bg-ash" className="text-ash line-through decoration-accent decoration-2">
         Agotado
-      </span>
+      </StatusTag>
     )
   }
 
   if (show.status === 'coming_soon') {
-    return <span className={`${statusTag} border-bone/25 text-bone/80`}>Entradas próximamente</span>
+    return (
+      <StatusTag dot="bg-bone/60" className="text-bone/80">
+        Entradas próximamente
+      </StatusTag>
+    )
   }
 
   if (show.status === 'free') {
     return show.ticketUrl ? (
       <ExternalLink
         href={show.ticketUrl}
-        className={`${statusTag} gap-2 border-accent text-accent transition-colors hover:bg-accent hover:text-ink`}
+        className={button('accent')}
         aria-label={`Gratis: reservar lugar para ${venueLabel}`}
       >
-        Gratis · Reservar <ArrowUpRight size={14} aria-hidden="true" />
+        Gratis · Reservar <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
       </ExternalLink>
     ) : (
-      <span className={`${statusTag} border-accent text-accent`}>Gratis</span>
+      <StatusTag dot="bg-accent" className="text-accent">
+        Gratis
+      </StatusTag>
     )
   }
 
@@ -112,7 +130,7 @@ function TicketAction({ show }: { show: Show }) {
     return (
       <ExternalLink
         href={show.ticketUrl}
-        className="inline-flex min-h-11 items-center gap-2 bg-accent px-5 text-[0.8125rem] font-bold tracking-[0.12em] text-ink uppercase transition-colors duration-200 hover:bg-bone active:scale-[0.98]"
+        className={buttonPrimary}
         aria-label={`Comprar entradas para ${venueLabel}`}
       >
         Entradas <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
@@ -126,10 +144,10 @@ function TicketAction({ show }: { show: Show }) {
       {show.infoUrl && (
         <ExternalLink
           href={show.infoUrl}
-          className={`${statusTag} gap-2 border-bone/40 text-bone transition-colors hover:border-bone hover:bg-bone hover:text-ink`}
+          className={buttonGhost}
           aria-label={`Más info sobre entradas para ${venueLabel}`}
         >
-          Más info <ArrowUpRight size={14} aria-hidden="true" />
+          Más info <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
         </ExternalLink>
       )}
     </>

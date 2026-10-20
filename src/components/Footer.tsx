@@ -1,16 +1,17 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react'
 import { artist } from '../data/artist'
+import { button } from './button'
 import { ExternalLink } from './ExternalLink'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-accent text-ink">
+    <footer data-behind-menu className="bg-accent text-ink">
       <div className="shell pt-12 md:pt-16">
         <div className="grid gap-10 md:grid-cols-12">
           <nav aria-label="Redes sociales" className="md:col-span-7">
-            <p className="label mb-4 text-ink/70">Redes</p>
+            <p className="label mb-4 text-ink">Redes</p>
             <ul className="border-t border-ink/25">
               {artist.socials.map((social) => (
                 <li key={social.label} className="border-b border-ink/25">
@@ -18,7 +19,7 @@ export function Footer() {
                     href={social.url}
                     className="group flex items-center justify-between py-3 font-display text-[clamp(2rem,5vw,3.5rem)] leading-none uppercase"
                   >
-                    <span className="transition-transform duration-300 ease-out group-hover:translate-x-2">
+                    <span className="transition-transform group-hover:translate-x-2">
                       {social.label}
                     </span>
                     <span className="flex items-center gap-3">
@@ -28,7 +29,7 @@ export function Footer() {
                         </span>
                       )}
                       <ArrowUpRight
-                        className="size-7 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 md:size-9"
+                        className="size-7 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 md:size-9"
                         aria-hidden="true"
                       />
                     </span>
@@ -40,25 +41,25 @@ export function Footer() {
 
           <div className="flex flex-col justify-between gap-8 md:col-span-4 md:col-start-9">
             <div>
-              <p className="label mb-4 text-ink/70">Contacto</p>
+              <p className="label mb-4 text-ink">Contacto</p>
               <a
                 href={`mailto:${artist.email}`}
                 className="text-lg font-semibold break-all underline decoration-2 underline-offset-4 hover:no-underline"
               >
                 {artist.email}
               </a>
-              <p className="mt-3 text-sm font-medium">
+              <p className="mt-3 text-sm">
                 Management{' '}
-                <ExternalLink href={artist.management.url} className="font-bold underline underline-offset-4">
+                <ExternalLink href={artist.management.url} className="font-semibold underline underline-offset-4">
                   {artist.management.handle}
                 </ExternalLink>
               </p>
             </div>
             <a
               href="#top"
-              className="label inline-flex min-h-11 items-center gap-2 self-start border border-ink px-4 transition-colors hover:bg-ink hover:text-accent"
+              className={`${button('inverse', 'sm')} self-start`}
             >
-              <ArrowUp size={14} aria-hidden="true" /> Volver arriba
+              <ArrowUp size={14} strokeWidth={2.25} aria-hidden="true" /> Volver arriba
             </a>
           </div>
         </div>
@@ -68,11 +69,11 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-ink/25">
-        <div className="shell flex flex-col gap-1 py-4 text-xs font-medium sm:flex-row sm:justify-between">
+        <div className="shell flex flex-col gap-1 py-4 text-xs sm:flex-row sm:justify-between">
           <p>
             © {year} {artist.name}. Todos los derechos reservados.
           </p>
-          <p className="text-ink/70">Sitio oficial</p>
+          <p>Sitio oficial</p>
         </div>
       </div>
     </footer>

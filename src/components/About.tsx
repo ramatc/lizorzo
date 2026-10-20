@@ -2,6 +2,7 @@ import { ArrowUpRight, Mail } from 'lucide-react'
 import { artist } from '../data/artist'
 import type { Release } from '../data/releases'
 import { parseISODate } from '../lib/dates'
+import { buttonPrimary } from './button'
 import { ExternalLink } from './ExternalLink'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
@@ -20,9 +21,9 @@ export function About({ releases }: { releases: Release[] }) {
   ].filter((fact): fact is { label: string; value: string } => Boolean(fact))
 
   return (
-    <section id="sobre-mi" aria-labelledby="sobre-mi-title" className="scroll-mt-16 pt-4 pb-20 md:pb-32">
+    <section id="sobre-mi" aria-labelledby="sobre-mi-title" className="pt-4 pb-20 md:pb-32">
       <div className="shell">
-        <SectionHeading id="sobre-mi-title" index="05" title="Sobre mí" />
+        <SectionHeading id="sobre-mi-title" title="Sobre mí" />
 
         <div className="mt-8 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-12">
           <Reveal className="md:col-span-5">
@@ -72,16 +73,17 @@ export function About({ releases }: { releases: Release[] }) {
               {facts.map((fact) => (
                 <div key={fact.label} className="border-b border-bone/15 py-4 pr-4">
                   <dt className="label text-ash">{fact.label}</dt>
-                  <dd className="mt-1.5 font-medium">{fact.value}</dd>
+                  <dd className="mt-1.5 font-semibold">{fact.value}</dd>
                 </div>
               ))}
             </dl>
 
-            <div id="contacto" className="mt-auto scroll-mt-24 pt-10">
+            <div id="contacto" className="mt-auto pt-10">
               <h3 className="label text-ash">{artist.copy.contactTitle}</h3>
               <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-                <a href={`mailto:${artist.email}`} className="inline-flex min-h-12 items-center gap-2 self-start bg-accent px-5 text-[0.9375rem] font-semibold text-ink transition-colors duration-200 hover:bg-bone active:scale-[0.98]">
-                  <Mail size={16} aria-hidden="true" /> {artist.email}
+                {/* An address is data, not a label: keep its real casing and spacing. */}
+                <a href={`mailto:${artist.email}`} className={`${buttonPrimary} self-start tracking-normal normal-case`}>
+                  <Mail size={16} strokeWidth={2.25} aria-hidden="true" /> {artist.email}
                 </a>
                 <p className="text-sm text-bone/80">
                   Management{' '}

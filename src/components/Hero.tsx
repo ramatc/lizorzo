@@ -2,7 +2,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react'
 import { artist } from '../data/artist'
 import type { Show } from '../data/shows'
 import { formatShowDate } from '../lib/dates'
-import { buttonGhost, buttonPrimary } from './ExternalLink'
+import { buttonGhost, buttonPrimary } from './button'
 
 type HeroProps = { nextShow?: Show }
 
@@ -29,7 +29,6 @@ export function Hero({ nextShow }: HeroProps) {
           className="absolute inset-0 bg-gradient-to-t from-ink via-ink/5 to-ink/50 md:from-ink md:via-ink/0 md:via-45%"
         />
         <p className="label absolute bottom-4 left-5 flex items-center gap-3 text-bone/80 md:hidden">
-          <span className="text-accent">01</span>
           <span className="h-px w-8 bg-bone/40" aria-hidden="true" />
           {artist.copy.heroLabel}
         </p>
@@ -39,7 +38,6 @@ export function Hero({ nextShow }: HeroProps) {
         <div className="hidden items-end justify-between gap-8 pb-6 md:flex lg:pb-8">
           <div className="max-w-md">
             <p className="label mb-5 flex items-center gap-3 text-bone/80">
-              <span className="text-accent">01</span>
               <span className="h-px w-10 bg-bone/40" aria-hidden="true" />
               {artist.copy.heroLabel}
             </p>
@@ -91,13 +89,13 @@ function NextShowTeaser({
       <span className="label text-ash">Próxima fecha</span>
       <span className="flex items-center gap-3">
         <span className="font-display text-2xl leading-none md:text-4xl">{next.compact}</span>
-        <span className="text-sm font-medium text-bone/90">
+        <span className="text-sm text-bone/90">
           {show.venue}
           <span className="block text-ash">{show.city}</span>
         </span>
         <ArrowRight
           size={18}
-          className="text-accent transition-transform duration-300 group-hover:translate-x-1"
+          className="text-accent transition-transform group-hover:translate-x-1"
           aria-hidden="true"
         />
       </span>

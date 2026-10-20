@@ -19,18 +19,20 @@ export default function App() {
 
   return (
     <div className="grain">
+      {/* data-behind-menu: made inert while the full-screen mobile menu is open (see Header). */}
       <a
+        data-behind-menu
         href="#fechas"
         className="label fixed top-2 left-2 z-[70] -translate-y-20 bg-accent px-4 py-3 text-ink focus:translate-y-0"
       >
         Saltar a las fechas
       </a>
       <Header />
-      <main>
+      <main data-behind-menu>
         <Hero nextShow={upcoming[0]} />
         <TourDates shows={upcoming} />
         <LatestRelease release={latest} />
-        <MusicGrid releases={catalog} liveSession={liveSession} />
+        <MusicGrid releases={catalog} liveSession={liveSession} total={published.length} />
         <About releases={published} />
       </main>
       <Footer />

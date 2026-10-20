@@ -1,10 +1,11 @@
 import { ArrowUpRight, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { spotifyUrl } from '../data/artist'
 import { releaseTypeLabel, type Release } from '../data/releases'
 import { parseISODate } from '../lib/dates'
-import { ExternalLink, buttonGhost } from './ExternalLink'
-import { ReleaseLinks } from './LatestRelease'
+import { buttonGhost } from './button'
+import { ExternalLink } from './ExternalLink'
+import { ReleaseLinks, releaseUrl } from './ReleaseLinks'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
 
@@ -13,27 +14,36 @@ const INITIAL_VISIBLE = 9
 type MusicGridProps = {
   releases: Release[]
   liveSession?: Release
+  /** Whole published discography, including the release featured above. */
+  total: number
 }
 
-export function MusicGrid({ releases, liveSession }: MusicGridProps) {
+export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
   const [expanded, setExpanded] = useState(false)
   const visible = expanded ? releases : releases.slice(0, INITIAL_VISIBLE)
   const hidden = releases.length - visible.length
+  const listRef = useRef<HTMLUListElement>(null)
+
+  // The "Ver más" button unmounts on expand; hand focus to the first newly shown release instead of <body>.
+  useEffect(() => {
+    if (!expanded) return
+    const item = listRef.current?.children[INITIAL_VISIBLE] as HTMLElement | undefined
+    if (!item) return
+    const link = item.querySelector<HTMLElement>('a')
+    if (link) return link.focus()
+    item.tabIndex = -1
+    item.focus()
+  }, [expanded])
 
   return (
-    <section id="musica" aria-labelledby="musica-title" className="scroll-mt-16 pt-4 pb-20 md:pb-32">
+    <section id="musica" aria-labelledby="musica-title" className="pt-4 pb-20 md:pb-32">
       <div className="shell">
-        <SectionHeading
-          id="musica-title"
-          index="04"
-          title="Música"
-          aside={`${releases.length + (liveSession ? 1 : 0)} lanzamientos`}
-        />
+        <SectionHeading id="musica-title" title="Música" aside={`${total} lanzamientos`} />
 
         {liveSession && <LiveSession release={liveSession} />}
 
         {releases.length > 0 && (
-          <ul id="discografia" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-9 md:mt-16 md:grid-cols-3 md:gap-x-8 md:gap-y-14">
+          <ul ref={listRef} id="discografia" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-9 md:mt-16 md:grid-cols-3 md:gap-x-8 md:gap-y-14">
             {visible.map((release, i) => (
               <Reveal as="li" key={release.id} delay={(i % 3) * 70}>
                 <ReleaseTile release={release} />
@@ -51,7 +61,7 @@ export function MusicGrid({ releases, liveSession }: MusicGridProps) {
               aria-controls="discografia"
               onClick={() => setExpanded(true)}
             >
-              <Plus size={16} aria-hidden="true" /> Ver {hidden} más
+              <Plus size={16} strokeWidth={2.25} aria-hidden="true" /> Ver {hidden} más
             </button>
           ) : (
             <span />
@@ -69,11 +79,11 @@ export function MusicGrid({ releases, liveSession }: MusicGridProps) {
 }
 
 function ReleaseTile({ release }: { release: Release }) {
-  const href = release.spotifyUrl ?? release.youtubeUrl
+  const href = releaseUrl(release)
   const year = parseISODate(release.releaseDate).year
 
-  return (
-    <ExternalLink href={href} className="group block" aria-label={`${release.title}, ${releaseTypeLabel[release.type]} ${year}. Escuchar`}>
+  const content = (
+    <>
       <div className="overflow-hidden bg-surface">
         <img
           src={release.artwork}
@@ -82,7 +92,7 @@ function ReleaseTile({ release }: { release: Release }) {
           height={640}
           loading="lazy"
           decoding="async"
-          className="aspect-square w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+          className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </div>
       <div className="mt-3 flex items-start justify-between gap-3 border-t border-bone/15 pt-3">
@@ -94,12 +104,23 @@ function ReleaseTile({ release }: { release: Release }) {
             {releaseTypeLabel[release.type]} · {year}
           </p>
         </div>
-        <ArrowUpRight
-          size={18}
-          aria-hidden="true"
-          className="mt-0.5 shrink-0 text-ash transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
-        />
+        {href && (
+          <ArrowUpRight
+            size={18}
+            aria-hidden="true"
+            className="mt-0.5 shrink-0 text-ash transition-[color,transform] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+          />
+        )}
       </div>
+    </>
+  )
+
+  // Without any platform link the tile is plain content: no hover, no arrow, nothing to press.
+  if (!href) return <div>{content}</div>
+
+  return (
+    <ExternalLink href={href} className="group block" aria-label={`${release.title}, ${releaseTypeLabel[release.type]} ${year}. Escuchar`}>
+      {content}
     </ExternalLink>
   )
 }
