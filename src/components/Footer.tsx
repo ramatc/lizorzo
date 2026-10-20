@@ -34,25 +34,10 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex flex-col justify-between gap-8 md:col-span-4 md:col-start-9">
-            <div>
-              <p className="label mb-4 text-ink">Contacto</p>
-              <a
-                href={`mailto:${artist.email}`}
-                className="text-lg font-semibold break-all underline decoration-2 underline-offset-4 hover:no-underline"
-              >
-                {artist.email}
-              </a>
-              <p className="mt-3 text-sm">
-                Management{' '}
-                <ExternalLink href={artist.management.url} className="font-semibold underline underline-offset-4">
-                  {artist.management.handle}
-                </ExternalLink>
-              </p>
-            </div>
+          <div className="flex items-end md:col-span-4 md:col-start-9">
             <a
               href="#top"
-              className={`${button('inverse', 'sm')} self-start`}
+              className={button('inverse', 'sm')}
             >
               <ArrowUp size={14} strokeWidth={2.25} aria-hidden="true" /> Volver arriba
             </a>
