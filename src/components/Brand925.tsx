@@ -5,7 +5,7 @@
  */
 
 type StampProps = {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'lg'
   /** Archive code shown as "925 / 001" in editorial labels; replaces the stamp. */
   index?: undefined
   className?: string
@@ -17,10 +17,9 @@ type IndexProps = {
   className?: string
 }
 
-/* sm: inline next to text (header). md: beside display type (hero). lg: the footer signature. */
+/* sm: inline next to text (header). lg: the footer signature. */
 const stampSizes = {
   sm: 'border px-[0.3em] pt-[0.22em] pb-[0.12em] text-[0.8125rem]',
-  md: 'border-[1.5px] px-[0.28em] pt-[0.2em] pb-[0.1em] text-[clamp(1.125rem,1.8vw,1.625rem)]',
   lg: 'border-2 px-[0.24em] pt-[0.16em] pb-[0.06em] text-[clamp(2.25rem,4.5vw,3.75rem)]',
 }
 
