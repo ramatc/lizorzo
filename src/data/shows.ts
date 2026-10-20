@@ -27,6 +27,8 @@ export type Show = {
   date: string
   city: string
   country: string
+  /** ISO 3166-1 alpha-2 (e.g. 'AR'); shows a flag next to the country when it exists in CountryFlag. */
+  countryCode?: string
   venue: string
   title?: string
   /** Local time, HH:MM (24h). */
@@ -40,8 +42,6 @@ export type Show = {
   status: ShowStatus
 }
 
-const instagramProfile = 'https://www.instagram.com/lizorzo/'
-
 const mapsSearch = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 
@@ -52,6 +52,7 @@ export const shows: Show[] = [
     date: '2026-09-18',
     city: 'Buenos Aires',
     country: 'Argentina',
+    countryCode: 'AR',
     venue: 'Club Cultural Otra Historia',
     title: 'Festival Smooth',
     time: '20:00',
@@ -65,11 +66,12 @@ export const shows: Show[] = [
     date: '2026-10-31',
     city: 'San Telmo, CABA',
     country: 'Argentina',
+    countryCode: 'AR',
     venue: 'Mala Vida',
     title: 'Halloween Night',
     time: '23:00',
     ticketInfo: 'Entradas a $8.000 por transferencia',
-    infoUrl: instagramProfile,
+    infoUrl: 'https://www.instagram.com/p/DedGuWCEfz5/',
     locationUrl: mapsSearch('Mala Vida, Piedras 78, San Telmo, CABA'),
     status: 'available',
   },
@@ -80,11 +82,12 @@ export const shows: Show[] = [
     date: '2027-01-30',
     city: 'Cd. Nezahualcóyotl, Edomex',
     country: 'México',
+    countryCode: 'MX',
     venue: 'Depto MX',
     title: 'Pacifiko K · Lizorzo invitado especial',
     time: '20:00',
     ticketInfo: 'General $200 · M&G $400 MXN · Boletos en Boletia',
-    infoUrl: instagramProfile,
+    infoUrl: 'https://www.instagram.com/p/DeiOCpjHZmv/',
     locationUrl: mapsSearch('Depto MX, Ciudad Nezahualcóyotl, Estado de México'),
     status: 'available',
   },

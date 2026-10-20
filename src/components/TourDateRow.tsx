@@ -2,6 +2,7 @@ import { ArrowUpRight, MapPin } from 'lucide-react'
 import type { Show } from '../data/shows'
 import { formatShowDate } from '../lib/dates'
 import { button, buttonGhost, buttonPrimary } from './button'
+import { CountryFlag } from './CountryFlag'
 import { ExternalLink } from './ExternalLink'
 
 export function TourDateRow({ show }: { show: Show }) {
@@ -34,7 +35,10 @@ export function TourDateRow({ show }: { show: Show }) {
           </h3>
           <p className="mt-1.5 text-[0.9375rem] text-bone/90">
             {show.venue}
-            <span className="text-ash"> · {show.country}</span>
+            <span className="text-ash">
+              {' · '}
+              <CountryFlag code={show.countryCode} /> {show.country}
+            </span>
           </p>
           {show.title && <p className="mt-1 text-sm text-ash">{show.title}</p>}
         </div>
