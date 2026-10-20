@@ -22,17 +22,10 @@ export function Footer() {
                     <span className="transition-transform group-hover:translate-x-2">
                       {social.label}
                     </span>
-                    <span className="flex items-center gap-3">
-                      {social.handle && (
-                        <span className="hidden font-sans text-sm font-semibold normal-case sm:inline">
-                          {social.handle}
-                        </span>
-                      )}
-                      <ArrowUpRight
-                        className="size-7 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 md:size-9"
-                        aria-hidden="true"
-                      />
-                    </span>
+                    <ArrowUpRight
+                      className="size-7 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 md:size-9"
+                      aria-hidden="true"
+                    />
                   </ExternalLink>
                 </li>
               ))}
@@ -73,7 +66,15 @@ export function Footer() {
           <p>
             © {year} {artist.name}. Todos los derechos reservados.
           </p>
-          <p>Sitio oficial</p>
+          <p>
+            Sitio oficial · Desarrollado por{' '}
+            <ExternalLink
+              href="https://ramatc.vercel.app/"
+              className="font-semibold underline underline-offset-4 hover:no-underline"
+            >
+              ramatc
+            </ExternalLink>
+          </p>
         </div>
       </div>
     </footer>

@@ -64,8 +64,7 @@ export const artist = {
       label: 'YouTube',
       url: 'https://www.youtube.com/channel/UCYzC0oPz9MWdyX4ZN9hbTWA',
     },
-    // TikTok: el ícono existe en Linktree pero sin enlace. Sumalo cuando esté confirmado:
-    // { label: 'TikTok', handle: '@…', url: 'https://www.tiktok.com/@…' },
+    { label: 'TikTok', handle: '@925lizorzo', url: 'https://www.tiktok.com/@925lizorzo' },
   ] satisfies SocialLink[],
 
   /** Editable UI copy. */
