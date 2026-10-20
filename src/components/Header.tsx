@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { artist } from '../data/artist'
 import { Brand925 } from './Brand925'
 import { button } from './button'
+import { trigger925 } from './EasterEgg925'
 
 const NAV = [
   { href: '#fechas', label: 'Fechas' },
@@ -14,6 +15,18 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
+  const logoTaps = useRef<number[]>([])
+
+  // Triple tap on the logo is the touch fallback for the 9-2-5 keyboard easter egg.
+  const onLogoClick = () => {
+    setOpen(false)
+    const now = performance.now()
+    logoTaps.current = [...logoTaps.current.filter((at) => now - at < 700), now]
+    if (logoTaps.current.length >= 3) {
+      logoTaps.current = []
+      trigger925()
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -60,8 +73,8 @@ export function Header() {
       <div className="shell flex h-16 shrink-0 items-center justify-between">
         <a
           href="#top"
-          className="group inline-flex items-center gap-2.5 font-display text-[1.625rem] leading-none tracking-[0.02em] uppercase"
-          onClick={() => setOpen(false)}
+          className="group inline-flex touch-manipulation items-center gap-2.5 font-display text-[1.625rem] leading-none tracking-[0.02em] uppercase select-none"
+          onClick={onLogoClick}
         >
           {artist.name}
           <Brand925 className="text-accent transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-ink" />
