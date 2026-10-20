@@ -3,13 +3,22 @@ import { useEffect, useRef, useState } from 'react'
 import { spotifyUrl } from '../data/artist'
 import { releaseTypeLabel, type Release } from '../data/releases'
 import { parseISODate } from '../lib/dates'
-import { buttonGhost } from './button'
+import { button, buttonGhost } from './button'
 import { ExternalLink } from './ExternalLink'
 import { ReleaseLinks, releaseUrl } from './ReleaseLinks'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
 
 const INITIAL_VISIBLE = 9
+
+/** Discography filters, mirroring Spotify's own split. */
+const FILTERS = [
+  { id: 'all', label: 'Todos', match: () => true },
+  { id: 'albums', label: 'Álbumes', match: (release: Release) => release.type === 'album' },
+  { id: 'singles', label: 'Sencillos y EP', match: (release: Release) => release.type === 'single' || release.type === 'ep' },
+] as const
+
+type FilterId = (typeof FILTERS)[number]['id']
 
 type MusicGridProps = {
   releases: Release[]
@@ -20,8 +29,16 @@ type MusicGridProps = {
 
 export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
   const [expanded, setExpanded] = useState(false)
-  const visible = expanded ? releases : releases.slice(0, INITIAL_VISIBLE)
-  const hidden = releases.length - visible.length
+  const [filter, setFilter] = useState<FilterId>('all')
+  const filters = FILTERS.map((f) => ({ ...f, count: releases.filter(f.match).length })).filter((f) => f.count > 0)
+  const filtered = releases.filter(FILTERS.find((f) => f.id === filter)!.match)
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE)
+  const hidden = filtered.length - visible.length
+
+  const selectFilter = (id: FilterId) => {
+    setFilter(id)
+    setExpanded(false)
+  }
   const listRef = useRef<HTMLUListElement>(null)
 
   // The "Ver más" button unmounts on expand; hand focus to the first newly shown release instead of <body>.
@@ -42,8 +59,30 @@ export function MusicGrid({ releases, liveSession, total }: MusicGridProps) {
 
         {liveSession && <LiveSession release={liveSession} />}
 
+        {filters.length > 2 && (
+          <div role="group" aria-label="Filtrar discografía" className="mt-10 flex flex-wrap gap-2 md:mt-16">
+            {filters.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                aria-pressed={filter === f.id}
+                aria-controls="discografia"
+                className={button(filter === f.id ? 'primary' : 'ghost', 'sm')}
+                onClick={() => selectFilter(f.id)}
+              >
+                {f.label}
+                <span className="font-semibold opacity-60">{f.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {releases.length > 0 && (
-          <ul ref={listRef} id="discografia" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-9 md:mt-16 md:grid-cols-3 md:gap-x-8 md:gap-y-14">
+          <ul
+            ref={listRef}
+            id="discografia"
+            className={`${filters.length > 2 ? 'mt-8' : 'mt-10 md:mt-16'} grid grid-cols-2 gap-x-4 gap-y-9 md:grid-cols-3 md:gap-x-8 md:gap-y-14`}
+          >
             {visible.map((release, i) => (
               <Reveal as="li" key={release.id} delay={(i % 3) * 70}>
                 <ReleaseTile release={release} />
