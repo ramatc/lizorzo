@@ -76,6 +76,22 @@ export const shows: Show[] = [
     status: 'available',
   },
   {
+    // Fuente: flyer de Nómada ("SAB 23 ENE").
+    // El año no figura en el flyer: 2027 es el próximo 23/01 que cae sábado. Confirmar.
+    id: '2027-01-23-style-one-qro',
+    date: '2027-01-23',
+    city: 'Querétaro, Qro.',
+    country: 'México',
+    countryCode: 'MX',
+    venue: 'Style One Skateshop',
+    title: 'Pacifiko K · Lizorzo invitado especial',
+    time: '18:00',
+    ticketInfo: 'General $200 · M&G $400 MXN · Boletos en Boletia',
+    infoUrl: 'https://www.instagram.com/p/DesjoIDnWyJ/',
+    locationUrl: mapsSearch('Andrés Balvanera 30, Centro, Querétaro, Qro., México'),
+    status: 'available',
+  },
+  {
     // Fuente: bio de Instagram + flyer de Nómada ("SAB 30 ENE").
     // El año no figura en el flyer: 2027 es el próximo 30/01 que cae sábado. Confirmar.
     id: '2027-01-30-depto-mx',
