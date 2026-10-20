@@ -76,8 +76,7 @@ export const shows: Show[] = [
     status: 'available',
   },
   {
-    // Fuente: flyer de Nómada ("SAB 23 ENE").
-    // El año no figura en el flyer: 2027 es el próximo 23/01 que cae sábado. Confirmar.
+    // Fuente: flyer de Nómada ("SAB 23 ENE"). Año 2027 confirmado.
     id: '2027-01-23-style-one-qro',
     date: '2027-01-23',
     city: 'Querétaro, Qro.',
