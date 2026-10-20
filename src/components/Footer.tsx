@@ -34,17 +34,17 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex items-center justify-between gap-6 md:col-span-4 md:col-start-9 md:self-end">
+          <div className="flex flex-col items-end gap-5 md:col-span-4 md:col-start-9 md:self-end">
+            {/* The artist's signature: the 925 hallmark. */}
+            <Reveal>
+              <Brand925 size="lg" className="text-ink" />
+            </Reveal>
             <a
               href="#top"
               className={button('inverse', 'sm')}
             >
               <ArrowUp size={14} strokeWidth={2.25} aria-hidden="true" /> Volver arriba
             </a>
-            {/* The artist's signature: the 925 hallmark. */}
-            <Reveal>
-              <Brand925 size="lg" className="text-ink" />
-            </Reveal>
           </div>
         </div>
 
