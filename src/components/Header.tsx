@@ -107,13 +107,13 @@ export function Header() {
         hidden={!open}
         className="flex-1 overflow-y-auto overscroll-contain border-t border-bone/10 md:hidden"
       >
-        <ul className="shell py-4">
+        <ul className="shell py-8 text-center">
           {[...NAV, { href: '#contacto', label: 'Contacto' }].map((item) => (
             <li key={item.href} className="border-b border-bone/10 last:border-b-0">
               <a
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block py-3 font-display text-[2.75rem] leading-none uppercase transition-colors hover:text-accent"
+                className="block py-5 font-display text-[2.75rem] leading-none uppercase transition-colors hover:text-accent"
               >
                 {item.label}
               </a>
