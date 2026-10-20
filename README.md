@@ -10,7 +10,8 @@ Sitio oficial de **LIZORZO**: lanzamientos, fechas de la gira, bio y contacto en
 
 🔗 **Sitio:** [lizorzo.com](https://www.lizorzo.com/)
 
-![LIZORZO](public/og.jpg)
+<img width="1283" height="1000" alt="image" src="https://github.com/user-attachments/assets/6b6706c2-336f-4ed1-974a-c0795626495f" />
+
 
 ---
 
@@ -96,17 +97,6 @@ lizorzo/
 ├── index.html         # Metadata, SEO y Open Graph
 └── vite.config.ts     # Configuración de Vite + Tailwind
 ```
-
----
-
-## ▲ Publicar en Vercel
-
-1. En [vercel.com](https://vercel.com) → **Add New → Project** → importá el repo.
-2. Vercel detecta Vite solo (build `npm run build`, output `dist`). **Deploy.**
-
-Cada push a `main` vuelve a publicar. Por CLI: `npm i -g vercel` y después `vercel --prod`.
-
----
 
 ## 📫 Créditos
 
