@@ -296,6 +296,11 @@ main[data-egg-shake] {
   --name-scale: 1;
   font-size: calc(100cqw * var(--name-scale) / var(--name-ratio));
   white-space: nowrap;
+  /*
+   * With leading 0.8 Anton's line box ends ~0.82em above the baseline and ~0.02em above it at the
+   * bottom, while glyphs reach 0.87em and dip below the baseline. Pad so clipping parents keep them.
+   */
+  padding-block: 0.06em 0.04em;
 }
 
 @media (min-width: 48rem) {

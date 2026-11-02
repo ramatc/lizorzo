@@ -49,7 +49,7 @@ export function Footer() {
         </div>
 
         <div className="@container mt-12 overflow-hidden md:mt-16" aria-hidden="true">
-          <p className="hero-name -mb-[0.04em] select-none font-display leading-[0.8] uppercase">{artist.name}</p>
+          <p className="hero-name select-none font-display leading-[0.8] uppercase">{artist.name}</p>
         </div>
       </div>
       <div className="border-t border-ink/25">
