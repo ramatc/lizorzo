@@ -8,6 +8,9 @@ import { ExternalLink } from './ExternalLink'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
 
+/** Photos shown beside the product info from `md`; the rest run in a full-width strip below it. */
+const LEAD_COUNT = 2
+
 export function Merch({ products }: { products: MerchProduct[] }) {
   if (products.length === 0) return null
 
@@ -27,10 +30,14 @@ export function Merch({ products }: { products: MerchProduct[] }) {
 }
 
 function Product({ product }: { product: MerchProduct }) {
+  const lead = product.images.slice(0, LEAD_COUNT)
+  const strip = product.images.slice(LEAD_COUNT)
+
   return (
     <article className="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <Reveal className="min-w-0 lg:col-span-7 xl:col-span-8">
-        <Gallery images={product.images} />
+        <MobileGallery images={product.images} />
+        <Lead images={lead} />
       </Reveal>
 
       <Reveal className="min-w-0 lg:col-span-5 xl:col-span-4" delay={120}>
@@ -65,74 +72,123 @@ function Product({ product }: { product: MerchProduct }) {
 
         <p className="mt-4 text-sm text-bone/70">{merchCopy.note}</p>
       </Reveal>
+
+      {strip.length > 0 && (
+        <Reveal className="hidden min-w-0 md:block lg:col-span-12" delay={80}>
+          <Strip images={strip} />
+        </Reveal>
+      )}
     </article>
   )
 }
 
-/** Swipeable strip on phones; from `md` the same figures become a fixed editorial composition. */
-function Gallery({ images }: { images: MerchImage[] }) {
+function Photo({ image, className = '' }: { image: MerchImage; className?: string }) {
+  return (
+    <div className="overflow-hidden bg-ink">
+      <img
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        loading="lazy"
+        decoding="async"
+        style={{ objectPosition: image.position }}
+        className={`w-full object-bottom transition-transform duration-500 motion-safe:group-hover:scale-[1.03] ${className}`}
+      />
+    </div>
+  )
+}
+
+/** Main composition from `md`: the first photo leads, the second supports it. */
+function Lead({ images }: { images: MerchImage[] }) {
+  return (
+    <div className="hidden items-end gap-6 md:grid md:grid-cols-8">
+      {images.map((image, index) => (
+        <figure key={image.src} className={`group ${index === 0 ? 'col-span-5' : 'col-span-3'}`}>
+          <Photo image={image} className="h-auto" />
+          <figcaption className="label mt-3 text-ash">{image.label}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+/** Justified row: every photo keeps its full frame at one shared height, so no print gets cropped. */
+function Strip({ images }: { images: MerchImage[] }) {
+  return (
+    <div className="flex gap-6">
+      {images.map((image) => (
+        <figure key={image.src} className="group min-w-0" style={{ flex: `${image.width / image.height} 1 0` }}>
+          <Photo image={image} className="h-auto" />
+          <figcaption className="label mt-3 text-ash">{image.label}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+/** Phones only: every photo in one swipeable strip, driven by touch or by the segments below it. */
+function MobileGallery({ images }: { images: MerchImage[] }) {
   const scroller = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
+  const last = images.length - 1
+
+  /* Distance between two consecutive slides. */
+  const slideStep = (node: HTMLDivElement) => {
+    const [first, second] = node.children as HTMLCollectionOf<HTMLElement>
+    return second.offsetLeft - first.offsetLeft
+  }
 
   const onScroll = () => {
     const node = scroller.current
-    if (!node) return
-    const max = node.scrollWidth - node.clientWidth
-    if (max > 0) setActive(Math.round((node.scrollLeft / max) * (images.length - 1)))
+    if (!node || last === 0) return
+    // The last slide cannot reach the start edge, so the end of the track counts as that slide.
+    const atEnd = node.scrollLeft >= node.scrollWidth - node.clientWidth - 1
+    setActive(atEnd ? last : Math.round(node.scrollLeft / slideStep(node)))
   }
 
   const goTo = (index: number) => {
     const node = scroller.current
-    if (!node) return
+    if (!node || last === 0) return
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const max = node.scrollWidth - node.clientWidth
-    node.scrollTo({ left: (max * index) / (images.length - 1), behavior: reduced ? 'auto' : 'smooth' })
+    node.scrollTo({ left: slideStep(node) * index, behavior: reduced ? 'auto' : 'smooth' })
   }
 
   return (
-    <>
+    <div className="md:hidden">
       <div
         ref={scroller}
         onScroll={onScroll}
-        className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overscroll-x-contain px-5 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-8 md:items-end md:gap-6 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overscroll-x-contain px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {images.map((image, index) => (
-          <figure
-            key={image.src}
-            className={`group w-[84%] shrink-0 snap-start last:snap-end md:w-auto ${index === 0 ? 'md:col-span-5' : 'md:col-span-3'}`}
-          >
-            <div className="overflow-hidden bg-ink">
-              {/* The bottom anchor keeps the back print in frame when the phone ratio trims the photo. */}
-              <img
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[5/6] w-full object-cover object-bottom transition-transform duration-500 motion-safe:group-hover:scale-[1.03] md:aspect-auto md:h-auto"
-              />
-            </div>
-            <figcaption className="label mt-3 hidden text-ash md:block">{image.label}</figcaption>
+        {images.map((image) => (
+          <figure key={image.src} className="w-[84%] shrink-0 snap-start last:snap-end">
+            <Photo image={image} className="aspect-[5/6] object-cover" />
           </figure>
         ))}
       </div>
 
-      {images.length > 1 && (
-        <div role="group" aria-label="Elegir foto" className="mt-1 flex gap-6 md:hidden">
-          {images.map((image, index) => (
-            <button
-              key={image.src}
-              type="button"
-              aria-pressed={active === index}
-              className={`label min-h-11 border-b-2 transition-colors ${active === index ? 'border-accent text-bone' : 'border-transparent text-ash'}`}
-              onClick={() => goTo(index)}
-            >
-              {image.label}
-            </button>
-          ))}
+      {last > 0 && (
+        <div className="mt-1 flex items-center gap-4">
+          <div role="group" aria-label="Elegir foto" className="flex flex-1 gap-1.5">
+            {images.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                aria-label={`Foto ${index + 1} de ${images.length}: ${image.label}`}
+                aria-pressed={active === index}
+                className="flex min-h-11 flex-1 items-center"
+                onClick={() => goTo(index)}
+              >
+                <span className={`h-0.5 w-full transition-colors ${active === index ? 'bg-accent' : 'bg-bone/25'}`} />
+              </button>
+            ))}
+          </div>
+          <p className="label text-ash">
+            <span className="text-bone">{active + 1}</span> / {images.length}
+          </p>
         </div>
       )}
-    </>
+    </div>
   )
 }
