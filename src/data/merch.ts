@@ -5,7 +5,7 @@
  * CÓMO SUMAR UN PRODUCTO
  * 1. Guardá las fotos en src/assets/merch/ e importalas abajo.
  * 2. Agregá un objeto a `merch`. `width`/`height` son las medidas reales del archivo.
- * 3. La primera foto es la protagonista y la segunda la acompaña; el resto va en la tira de abajo.
+ * 3. Las dos primeras fotos van junto a la info, a la misma altura; el resto va en la tira de abajo.
  *
  * `available: false` lo oculta sin borrarlo.
  */

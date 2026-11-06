@@ -37,7 +37,9 @@ function Product({ product }: { product: MerchProduct }) {
     <article className="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <Reveal className="min-w-0 lg:col-span-7 xl:col-span-8">
         <MobileGallery images={product.images} />
-        <Lead images={lead} />
+        <div className="hidden md:block">
+          <PhotoRow images={lead} />
+        </div>
       </Reveal>
 
       <Reveal className="min-w-0 lg:col-span-5 xl:col-span-4" delay={120}>
@@ -75,7 +77,7 @@ function Product({ product }: { product: MerchProduct }) {
 
       {strip.length > 0 && (
         <Reveal className="hidden min-w-0 md:block lg:col-span-12" delay={80}>
-          <Strip images={strip} />
+          <PhotoRow images={strip} />
         </Reveal>
       )}
     </article>
@@ -99,22 +101,8 @@ function Photo({ image, className = '' }: { image: MerchImage; className?: strin
   )
 }
 
-/** Main composition from `md`: the first photo leads, the second supports it. */
-function Lead({ images }: { images: MerchImage[] }) {
-  return (
-    <div className="hidden items-end gap-6 md:grid md:grid-cols-8">
-      {images.map((image, index) => (
-        <figure key={image.src} className={`group ${index === 0 ? 'col-span-5' : 'col-span-3'}`}>
-          <Photo image={image} className="h-auto" />
-          <figcaption className="label mt-3 text-ash">{image.label}</figcaption>
-        </figure>
-      ))}
-    </div>
-  )
-}
-
 /** Justified row: every photo keeps its full frame at one shared height, so no print gets cropped. */
-function Strip({ images }: { images: MerchImage[] }) {
+function PhotoRow({ images }: { images: MerchImage[] }) {
   return (
     <div className="flex gap-6">
       {images.map((image) => (
