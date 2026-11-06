@@ -21,6 +21,7 @@ Sitio oficial de **LIZORZO**: lanzamientos, fechas de la gira, bio y contacto en
 - **Último lanzamiento**, elegido automáticamente según la fecha de salida.
 - **Discografía** con links a cada plataforma.
 - **Fechas** de la gira: solo las próximas, ordenadas solas, con banderas por país y botón de entradas.
+- **Merch** con compra coordinada por Instagram, sin carrito ni pagos online.
 - **Sobre mí** con bio y retrato.
 - **Easter egg «Archivo 925»**: escribí `9-2-5` en el teclado (o tocá tres veces el logo en mobile).
 - **SEO y preview de links**: metadata, Open Graph, `sitemap.xml` y `robots.txt`.
@@ -69,6 +70,7 @@ La app queda disponible en [http://localhost:5173](http://localhost:5173).
 | Agregar / cambiar una fecha      | `src/data/shows.ts`                                        |
 | Sumar un lanzamiento             | `src/data/releases.ts` + portada en `src/assets/releases/` |
 | Cambiar bio, mail, redes, textos | `src/data/artist.ts`                                       |
+| Sumar merch, precio o talles     | `src/data/merch.ts` + fotos en `src/assets/merch/`         |
 | Reemplazar fotos                 | `src/assets/photos/` (y medidas en `artist.ts`)            |
 
 > [!TIP]

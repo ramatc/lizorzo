@@ -8,6 +8,7 @@ import { trigger925 } from './EasterEgg925'
 const NAV = [
   { href: '#fechas', label: 'Fechas' },
   { href: '#musica', label: 'Música' },
+  { href: '#merch', label: 'Merch' },
   { href: '#sobre-mi', label: 'Sobre mí' },
 ]
 

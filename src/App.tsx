@@ -6,8 +6,10 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { LatestRelease } from './components/LatestRelease'
+import { Merch } from './components/Merch'
 import { MusicGrid } from './components/MusicGrid'
 import { TourDates } from './components/TourDates'
+import { merch } from './data/merch'
 import { releases } from './data/releases'
 import { shows } from './data/shows'
 import { getPublishedReleases, getUpcomingShows, todayISO } from './lib/dates'
@@ -36,6 +38,7 @@ export default function App() {
         <TourDates shows={upcoming} />
         <LatestRelease release={latest} />
         <MusicGrid releases={catalog} liveSession={liveSession} total={published.length} />
+        <Merch products={merch.filter((product) => product.available)} />
         <About releases={published} />
       </main>
       <Footer />
