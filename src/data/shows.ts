@@ -47,35 +47,6 @@ const mapsSearch = (query: string) =>
 
 export const shows: Show[] = [
   {
-    // Fuente: linktr.ee/Lizorzo → otrahistoria.com.ar (ya pasó, queda como archivo).
-    id: '2026-09-18-otra-historia',
-    date: '2026-09-18',
-    city: 'Buenos Aires',
-    country: 'Argentina',
-    countryCode: 'AR',
-    venue: 'Club Cultural Otra Historia',
-    title: 'Festival Smooth',
-    time: '20:00',
-    ticketUrl: 'https://otrahistoria.com.ar/evento/festival-smooth-lizorzo/',
-    locationUrl: mapsSearch('Estomba 851, CABA, Argentina'),
-    status: 'available',
-  },
-  {
-    // Fuente: bio de Instagram + flyer "Halloween Night".
-    id: '2026-10-31-mala-vida',
-    date: '2026-10-31',
-    city: 'San Telmo, CABA',
-    country: 'Argentina',
-    countryCode: 'AR',
-    venue: 'Mala Vida',
-    title: 'Halloween Night',
-    time: '23:00',
-    ticketInfo: 'Entradas a $8.000 por transferencia',
-    infoUrl: 'https://www.instagram.com/p/DedGuWCEfz5/',
-    locationUrl: mapsSearch('Mala Vida, Piedras 78, San Telmo, CABA'),
-    status: 'available',
-  },
-  {
     // Fuente: flyer de Nómada ("SAB 23 ENE"). Año 2027 confirmado.
     id: '2027-01-23-style-one-qro',
     date: '2027-01-23',
