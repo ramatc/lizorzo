@@ -44,6 +44,7 @@ import presente from '../assets/releases/presente.webp'
 import principiosDeUnPrincipe from '../assets/releases/principios-de-un-principe.webp'
 import provecho from '../assets/releases/provecho.webp'
 import quePinta from '../assets/releases/que-pinta.webp'
+import puedo from '../assets/releases/puedo.webp'
 import razon from '../assets/releases/razon.webp'
 import roma from '../assets/releases/roma.webp'
 import sinopsisDeluxe from '../assets/releases/sinopsis-deluxe.webp'
@@ -82,6 +83,14 @@ export type Release = {
 const spotifyAlbum = (id: string) => `https://open.spotify.com/album/${id}`
 
 export const releases: Release[] = [
+  {
+    id: 'puedo',
+    title: 'Puedo',
+    type: 'single',
+    releaseDate: '2026-11-13',
+    artwork: puedo,
+    spotifyUrl: spotifyAlbum('7arie07zytO7pXdgHjvgwS'),
+  },
   {
     id: 'palabras-infinitas',
     title: 'Palabras Infinitas',
